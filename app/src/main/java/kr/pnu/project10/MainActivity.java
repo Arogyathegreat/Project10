@@ -13,18 +13,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_password_change);
 
-        LinearLayout top_left = (LinearLayout) findViewById(R.id.top_left);
 
-        TextView text1 = (TextView) top_left.getChildAt(0);
 
-        top_left.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), text1.getText().toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
 
     }
