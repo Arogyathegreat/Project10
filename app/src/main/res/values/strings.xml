@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Project10</string>
+
+<!--   Bottom Navigation-->
+    <string name="explore">Explore</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
 </resources>
