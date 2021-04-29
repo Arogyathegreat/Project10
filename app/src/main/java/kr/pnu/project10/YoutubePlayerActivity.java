@@ -18,6 +18,9 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import kr.pnu.project10.Fragments.CourseContentsFragmentArgs;
 import kr.pnu.project10.Utility.YoutubeConfig;
@@ -26,20 +29,24 @@ import kr.pnu.project10.Utility.YoutubeFailureRecoveryActivity;
 public class YoutubePlayerActivity extends YoutubeFailureRecoveryActivity {
 
     private YouTubePlayerView playerView; // the youtubeplayer video player
-
     private String mVideoLink;
     private String mVideoName;
+    private TextView mVideoNameTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_youtube_player);
         playerView = (YouTubePlayerView) findViewById(R.id.youtube_player);
+        mVideoNameTV = (TextView) findViewById(R.id.video_name);
 
         playerView.initialize(YoutubeConfig.YOUTUBE_API_KEY, this);
 
         mVideoName = CourseContentsFragmentArgs.fromBundle(getIntent().getExtras()).getVideoName();
         mVideoLink = CourseContentsFragmentArgs.fromBundle(getIntent().getExtras()).getVideoLink();
+
+        mVideoNameTV.setText(mVideoName);
+
         Log.d("YoutubePlayerActivity", mVideoLink);
 
     }
