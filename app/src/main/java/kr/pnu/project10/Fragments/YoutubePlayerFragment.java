@@ -19,6 +19,7 @@ public class YoutubePlayerFragment extends Fragment {
 
     private YoutubePlayerViewModel mViewModel;
 
+
     public static YoutubePlayerFragment newInstance() {
         return new YoutubePlayerFragment();
     }
@@ -26,7 +27,7 @@ public class YoutubePlayerFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.youtube_player_fragment, container, false);
+        return inflater.inflate(R.layout.activity_youtube_player, container, false);
     }
 
     @Override

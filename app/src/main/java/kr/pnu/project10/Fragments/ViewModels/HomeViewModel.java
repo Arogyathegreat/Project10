@@ -12,9 +12,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import kr.pnu.project10.Fragments.HomeFragment;
-
-
 public class HomeViewModel extends ViewModel {
     // TODO: Implement the ViewModel
     FirebaseFirestore db = FirebaseFirestore.getInstance();

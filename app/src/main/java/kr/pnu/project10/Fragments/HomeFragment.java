@@ -7,7 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavOptions;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,21 +16,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import kr.pnu.project10.Fragments.ViewModels.HomeViewModel;
 import kr.pnu.project10.R;
 import kr.pnu.project10.Utility.CourseModel;
 import kr.pnu.project10.databinding.HomeFragmentBinding;
+
 
 public class HomeFragment extends Fragment {
 
@@ -38,6 +38,10 @@ public class HomeFragment extends Fragment {
     private FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
 
     private RecyclerView mCourses;
+
+    private NavController navController;
+
+    private Bundle bundle;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -51,7 +55,8 @@ public class HomeFragment extends Fragment {
         View view = binding.getRoot();
         mCourses = binding.recyclerView;
         mCourses.setLayoutManager(new LinearLayoutManager(getActivity()));
-        setRecyclerView();
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+
         return view;
 
     }
@@ -69,6 +74,9 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        bundle = new Bundle();
+
+        setRecyclerView();
 
     }
 
@@ -118,7 +126,13 @@ public class HomeFragment extends Fragment {
 
         void setCourseName(final String courseName) {
             TextView courseNameView = mView.findViewById(R.id.course_name);
+            RelativeLayout courseItem = mView.findViewById(R.id.course_item);
             courseNameView.setText(courseName);
+
+            courseItem.setOnClickListener(view -> {
+                    bundle.putString("courseName", courseName);
+                    Navigation.findNavController(view).navigate(R.id.home_to_courseContents_action, bundle);
+            });
         }
 
     }

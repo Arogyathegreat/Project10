@@ -13,4 +13,9 @@
     <color name="primary">#6D9773</color>
     <color name="secondary">#FFBA00</color>
     <color name="accent">#4C230A</color>
+
+
+    <color name="dullblack">#707070</color>
+
+    <color name="advanced_blue">#02276f</color>
 </resources>

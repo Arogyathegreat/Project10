@@ -6,11 +6,6 @@
     app:startDestination="@id/home_dest">
 
     <fragment
-        android:id="@+id/youtubePlayer_dest"
-        android:name="kr.pnu.project10.Fragments.YoutubePlayerFragment"
-        android:label="youtube_player_fragment"
-        tools:layout="@layout/youtube_player_fragment" />
-    <fragment
         android:id="@+id/explore_dest"
         android:name="kr.pnu.project10.Fragments.ExploreFragment"
         android:label="explore_fragment"
@@ -39,5 +34,42 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/home_to_courseContents_action"
+            app:destination="@id/courseContents_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="courseName"
+            app:argType="string"
+            android:defaultValue="-1" />
     </fragment>
+    <fragment
+        android:id="@+id/courseContents_dest"
+        android:name="kr.pnu.project10.Fragments.CourseContentsFragment"
+        android:label="course_contents_fragment"
+        tools:layout="@layout/course_contents_fragment">
+        <action
+            android:id="@+id/courseContents_to_youtubePlayer_action"
+            app:destination="@id/youtubePlayer_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="videoName"
+            app:argType="string"
+            android:defaultValue="-1" />
+        <argument
+            android:name="videoLink"
+            app:argType="string"
+            android:defaultValue="-1" />
+    </fragment>
+    <activity
+        android:id="@+id/youtubePlayer_dest"
+        android:name="kr.pnu.project10.YoutubePlayerActivity"
+        android:label="activity_youtube_player"
+        tools:layout="@layout/activity_youtube_player" />
 </navigation>

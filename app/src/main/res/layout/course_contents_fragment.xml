@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragments.CourseContentsFragment">
+
+    <RelativeLayout
+        android:id="@+id/head_container"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/advanced_blue"
+        >
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:id="@+id/course_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Introduction to Hangul"
+            android:layout_marginBottom="40dp"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="0dp"
+            android:gravity="center"
+            />
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider = "@null"
+        android:nestedScrollingEnabled="false">
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>
