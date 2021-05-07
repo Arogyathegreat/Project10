@@ -61,7 +61,11 @@ public class GoogleSignInActivity extends Activity {
         googleLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                switch (v.getId()) {
+                    case R.id.google_sign_in_button:
+                        signIn();
+                        break;
+                }
             }
         });
     }
