@@ -130,8 +130,8 @@ public class HomeFragment extends Fragment {
             courseNameView.setText(courseName);
 
             courseItem.setOnClickListener(view -> {
-                    bundle.putString("courseName", courseName);
-                    Navigation.findNavController(view).navigate(R.id.home_to_courseContents_action, bundle);
+                bundle.putString("courseName", courseName);
+                Navigation.findNavController(view).navigate(R.id.home_to_courseContents_action, bundle);
             });
         }
 

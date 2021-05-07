@@ -37,7 +37,7 @@ public class GoogleSignInActivity extends Activity {
 
     private GoogleSignInClient mGoogleSignInClient;
 
-    SignInButton googleLoginBtn = findViewById(R.id.google_sign_in_button);
+    SignInButton googleLoginBtn;
 
 
     @Override
@@ -45,6 +45,8 @@ public class GoogleSignInActivity extends Activity {
         super.onCreate(savedInstanceState);
         // [START config_signin]
         // Configure Google Sign In
+
+        setContentView(R.layout.profile_fragment);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -58,11 +60,15 @@ public class GoogleSignInActivity extends Activity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // [END initialize_auth]
+
+        Log.d("GoogleSignInActivity", "Entered switch");
+        googleLoginBtn = findViewById(R.id.google_sign_in_button);
         googleLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.google_sign_in_button:
+                        Log.d("GoogleSignInActivity", "Entered switch");
                         signIn();
                         break;
                 }
@@ -126,6 +132,7 @@ public class GoogleSignInActivity extends Activity {
     // [START signin]
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        Log.d("signin",signInIntent.toString());
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
     // [END signin]
@@ -133,4 +140,5 @@ public class GoogleSignInActivity extends Activity {
     private void updateUI(FirebaseUser user) {
 
     }
+
 }

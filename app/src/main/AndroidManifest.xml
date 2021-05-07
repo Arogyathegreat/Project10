@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project10">
         <activity android:name=".YoutubePlayerActivity" />
+        <activity android:name=".GoogleSignInActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
