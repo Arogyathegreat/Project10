@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.common.SignInButton;
+
 import kr.pnu.project10.Fragments.ViewModels.ProfileViewModel;
 import kr.pnu.project10.R;
 
@@ -23,6 +25,8 @@ public class ProfileFragment extends Fragment {
         return new ProfileFragment();
     }
 
+
+    
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
