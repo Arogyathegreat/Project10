@@ -6,6 +6,19 @@
     <string name="home">Home</string>
     <string name="profile">Profile</string>
 
-<!--    YoutubeFailureRecoveryActivity-->
+    <!--    YoutubeFailureRecoveryActivity-->
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
+
+    <!--    signup_fragment.xml-->
+    <string name="join_us">Join Project 10. Always be learning!</string>
+    <string name="sync">Your progress will be in sync no matter which phone you\'re using.</string>
+    <string name="email_signup">Sign up with email</string>
+    <string name="signin">Sign in</string>
+    <string name="ask_user">Already a user?</string>
+
+    <!--    Google Signin-->
+    <string name="google_signup">Continue with Google</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

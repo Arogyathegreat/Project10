@@ -1,13 +1,21 @@
-package kr.pnu.project10;
+package kr.pnu.project10.Fragments;
 
+import androidx.lifecycle.ViewModelProvider;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -23,72 +31,72 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-/**
- * Demonstrate Firebase Authentication using a Google ID Token.
- */
-public class GoogleSignInActivity extends Activity {
+import kr.pnu.project10.Fragments.ViewModels.SignupViewModel;
+import kr.pnu.project10.R;
+import kr.pnu.project10.databinding.SignupFragmentBinding;
 
-    private static final String TAG = "GoogleActivity";
-    private static final int RC_SIGN_IN = 9001;
+public class SignupFragment extends Fragment {
 
-    // [START declare_auth]
+    private SignupViewModel mViewModel;
+    private SignupFragmentBinding binding;
+
+    private int RC_SIGN_IN;
+
     private FirebaseAuth mAuth;
-    // [END declare_auth]
-
     private GoogleSignInClient mGoogleSignInClient;
 
-    SignInButton googleLoginBtn;
+    Button customGoogleLoginBtn;
 
+    public static SignupFragment newInstance() {
+        return new SignupFragment();
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // [START config_signin]
-        // Configure Google Sign In
-
-        setContentView(R.layout.profile_fragment);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        binding = SignupFragmentBinding.inflate(inflater, container, false);
+        customGoogleLoginBtn = binding.googleLoginCustom;
+//        googleLoginBtn = binding.googleLoginDefault;
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        // [END config_signin]
+        mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
 
-        // [START initialize_auth]
-        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-        // [END initialize_auth]
 
-        Log.d("GoogleSignInActivity", "Entered switch");
-        googleLoginBtn = findViewById(R.id.google_sign_in_button);
-        googleLoginBtn.setOnClickListener(new View.OnClickListener() {
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(SignupViewModel.class);
+        RC_SIGN_IN = SignupViewModel.getRcSignIn();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        customGoogleLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.google_sign_in_button:
-                        Log.d("GoogleSignInActivity", "Entered switch");
-                        signIn();
-                        break;
-                }
+            public void onClick(View view) {
+                signIn();
             }
         });
     }
 
-    // [START on_start_check_user]
     @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
-    // [END on_start_check_user]
 
-    // [START onactivityresult]
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
@@ -105,13 +113,21 @@ public class GoogleSignInActivity extends Activity {
             }
         }
     }
-    // [END onactivityresult]
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
+    }
 
     // [START auth_with_google]
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -129,16 +145,17 @@ public class GoogleSignInActivity extends Activity {
     }
     // [END auth_with_google]
 
-    // [START signin]
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        Log.d("signin",signInIntent.toString());
+        Log.d("signin", signInIntent.toString());
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-    // [END signin]
 
     private void updateUI(FirebaseUser user) {
-
+        if (user != null)
+            Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.signup_to_profile_action);
     }
+
+    private static final String TAG = "SignupFrament";
 
 }

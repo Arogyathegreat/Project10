@@ -13,7 +13,7 @@
         android:title="@string/home" />
 
     <item
-        android:id="@+id/profile_dest"
+        android:id="@+id/void_dest"
         android:enabled="true"
         android:icon="@drawable/ic_account_circle_24dp"
         android:title="@string/profile" />

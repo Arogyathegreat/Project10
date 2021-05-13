@@ -28,8 +28,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/home_to_profile_action"
-            app:destination="@id/profile_dest"
+            android:id="@+id/home_to_signup_action"
+            app:destination="@id/signup_dest"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -72,4 +72,21 @@
         android:name="kr.pnu.project10.YoutubePlayerActivity"
         android:label="activity_youtube_player"
         tools:layout="@layout/activity_youtube_player" />
+    <fragment
+        android:id="@+id/signup_dest"
+        android:name="kr.pnu.project10.Fragments.SignupFragment"
+        android:label="SignupFragment">
+        <action
+            android:id="@+id/signup_to_profile_action"
+            app:destination="@id/profile_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/void_dest"
+        android:name="kr.pnu.project10.Fragments.VoidFragment"
+        android:label="void_fragment"
+        tools:layout="@layout/void_fragment"/>
 </navigation>
