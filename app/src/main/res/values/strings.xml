@@ -18,7 +18,8 @@
 
     <!--    Google Signin-->
     <string name="google_signup">Continue with Google</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+<!--    Profile Fragment-->
+    <string name="settings">Settings</string>
 
 </resources>
