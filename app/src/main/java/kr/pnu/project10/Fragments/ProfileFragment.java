@@ -50,17 +50,14 @@ public class ProfileFragment extends Fragment {
         accountTest = binding.accountTest;
 
         mAuth = FirebaseAuth.getInstance();
-        authUserID = mAuth.getCurrentUser().getEmail();
 
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
-        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                navController.navigate(R.id.home_dest);
-            }
-        };
-        requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
+        if (mAuth.getCurrentUser() == null)
+            navController.navigate(R.id.signup_dest);
+        else
+            authUserID = mAuth.getCurrentUser().getEmail();
+
 
         return binding.getRoot();
     }
@@ -68,6 +65,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         accountTest.setText(authUserID);
     }
 

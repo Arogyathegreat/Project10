@@ -84,9 +84,4 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
-    <fragment
-        android:id="@+id/void_dest"
-        android:name="kr.pnu.project10.Fragments.VoidFragment"
-        android:label="void_fragment"
-        tools:layout="@layout/void_fragment"/>
 </navigation>
