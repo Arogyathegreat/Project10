@@ -16,12 +16,20 @@
         android:label="profile_fragment"
         tools:layout="@layout/profile_fragment">
         <action
-            android:id="@+id/prfile_to_signup_action"
+            android:id="@+id/profile_to_signup_action"
             app:destination="@id/signup_dest"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left" />
+
+        <action
+            android:id="@+id/profile_to_bookmarks_action"
+            app:destination="@id/bookmarks_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
     </fragment>
     <fragment
@@ -84,7 +92,7 @@
     <fragment
         android:id="@+id/signup_dest"
         android:name="kr.pnu.project10.Fragments.SignupFragment"
-        android:label="SignupFragment">
+        android:label="signup_fragment">
         <action
             android:id="@+id/signup_to_profile_action"
             app:destination="@id/profile_dest"
@@ -93,4 +101,9 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+    <fragment
+        android:id="@+id/bookmarks_dest"
+        android:name="kr.pnu.project10.Fragments.BookmarksFragment"
+        android:label="bookmarks_fragment"
+        tools:layout="@layout/bookmarks_fragment" />
 </navigation>

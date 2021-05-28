@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bookmarks_dest"
+        android:icon="@drawable/ic_bookmarks_black_24dp"
+        android:enabled="true"
+        android:title="@string/bookmarks">
+    </item>
+
+    <item
+        android:id="@+id/signout"
+        android:icon="@drawable/ic_logout_black_24dp"
+        android:enabled="true"
+        android:title="@string/sign_out">
+    </item>
+
+
+
+</menu>

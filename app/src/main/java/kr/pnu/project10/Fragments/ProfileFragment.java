@@ -1,9 +1,11 @@
 package kr.pnu.project10.Fragments;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,10 +16,12 @@ import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -79,6 +83,7 @@ public class ProfileFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -87,22 +92,43 @@ public class ProfileFragment extends Fragment {
         Log.d(TAG, "Uri is :" + userName);
         picassoImageSet(uriProfileImage);
 
-        if (authUser != null)
-        {
-            btnSettings.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    signOut();
-                }
-            });
+        if (authUser != null) {
+            btnSettings.setOnClickListener(view12 -> signOut());
         }
+
+        btnSettings.setOnClickListener(view1 -> {
+            PopupMenu popupMenu = new PopupMenu(getContext(), view1);
+            popupMenu.getMenuInflater().inflate(R.menu.profile_options_menu, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(menuItem -> {
+                switch (menuItem.getItemId()) {
+                    case R.id.signout:
+                        signOut();
+                        break;
+                    case R.id.bookmarks_dest:
+                        navController.navigate(R.id.profile_to_bookmarks_action);
+                        return true;
+                }
+                return false;
+            });
+            popupMenu.setForceShowIcon(true);
+            popupMenu.show();
+        });
+
+
     }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         // TODO: Use the ViewModel
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 
     private void picassoImageSet(Uri imgUri) {
@@ -119,13 +145,13 @@ public class ProfileFragment extends Fragment {
                 });
     }
 
-    private void signOut(){
+    private void signOut() {
         mAuth.signOut();
         googleSignOut();
-        navController.navigate(R.id.prfile_to_signup_action);
+        navController.navigate(R.id.profile_to_signup_action);
     }
 
-    private void googleSignOut(){
+    private void googleSignOut() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
