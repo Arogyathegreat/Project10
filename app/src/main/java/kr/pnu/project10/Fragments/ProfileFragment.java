@@ -29,8 +29,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import kr.pnu.project10.Fragments.ViewModels.ProfileViewModel;
 import kr.pnu.project10.R;
@@ -46,6 +50,8 @@ public class ProfileFragment extends Fragment {
 
     private FirebaseUser authUser;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
+
 
     private ImageView ivProfileImage;
     private TextView tvProfileName;
@@ -114,6 +120,7 @@ public class ProfileFragment extends Fragment {
             popupMenu.show();
         });
 
+        addUserToDB();
 
     }
 
@@ -159,6 +166,22 @@ public class ProfileFragment extends Fragment {
 
         GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
         mGoogleSignInClient.signOut();
+    }
+
+    private void addUserToDB(){
+        if (authUser != null)
+        {
+            Map<String, Object> userData = new HashMap<>();
+            userData.put("user_name", authUser.getDisplayName());
+            userData.put("user_email", authUser.getEmail());
+            userData.put("user_uid", authUser.getUid());
+            Log.d(TAG, userData.toString());
+            rootRef.collection("Users").document(authUser.getUid())
+                    .set(userData)
+                    .addOnSuccessListener(unused -> Log.d(TAG, "DocumentSnapshot successfully written!"))
+                    .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e));
+        }
+
     }
 
 }

@@ -24,12 +24,20 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import kr.pnu.project10.Fragments.ViewModels.SignupViewModel;
 import kr.pnu.project10.R;
@@ -43,7 +51,10 @@ public class SignupFragment extends Fragment {
     private int RC_SIGN_IN;
 
     private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
+
     private GoogleSignInClient mGoogleSignInClient;
+
 
     Button customGoogleLoginBtn;
 
@@ -56,7 +67,6 @@ public class SignupFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = SignupFragmentBinding.inflate(inflater, container, false);
         customGoogleLoginBtn = binding.googleLoginCustom;
-//        googleLoginBtn = binding.googleLoginDefault;
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -66,6 +76,7 @@ public class SignupFragment extends Fragment {
         mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
 
         mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
 
         return binding.getRoot();
     }
@@ -155,6 +166,8 @@ public class SignupFragment extends Fragment {
         if (user != null)
             Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.signup_to_profile_action);
     }
+
+
 
     private static final String TAG = "SignupFrament";
 

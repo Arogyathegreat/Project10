@@ -105,5 +105,23 @@
         android:id="@+id/bookmarks_dest"
         android:name="kr.pnu.project10.Fragments.BookmarksFragment"
         android:label="bookmarks_fragment"
-        tools:layout="@layout/bookmarks_fragment" />
+        tools:layout="@layout/bookmarks_fragment">
+        <action
+            android:id="@+id/bookmarks_to_youtubePlayer_action"
+            app:destination="@id/youtubePlayer_dest"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+            <argument
+                android:name="videoName"
+                app:argType="string"
+                android:defaultValue="-1" />
+            <argument
+                android:name="videoLink"
+                app:argType="string"
+                android:defaultValue="-1" />
+        </action>
+    </fragment>
+
 </navigation>

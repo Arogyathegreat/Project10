@@ -106,7 +106,7 @@ public class CourseContentsFragment extends Fragment {
         adapter.startListening();
     }
 
-    public class VideoViewHolder extends RecyclerView.ViewHolder{
+    private class VideoViewHolder extends RecyclerView.ViewHolder{
 
         View mView;
 
