@@ -6,6 +6,15 @@
     <string name="home">Home</string>
     <string name="profile">Profile</string>
 
+    <!--    Home Fragment-->
+    <string name="ready_to_start_learning">Ready to start learning?</string>
+    <string name="sign_in">Sign in</string>
+    <string name="project_10">Project 10</string>
+
+    <!--    Explore Fragment-->
+    <string name="featured_creators">Featured Creators</string>
+
+
     <!--    YoutubeFailureRecoveryActivity-->
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
 
@@ -23,5 +32,6 @@
     <string name="settings">Settings</string>
     <string name="bookmarks">Bookmarks</string>
     <string name="sign_out">Sign Out</string>
+
 
 </resources>

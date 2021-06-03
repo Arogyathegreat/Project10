@@ -16,18 +16,31 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_centerVertical="true"
             android:padding="8dp"
-            android:scaleType="fitCenter"
             android:src="@drawable/ic_close_black_24dp"
             android:background="@null"
             android:alpha="0.3"/>
 
         <TextView
+            android:id="@+id/tvVideoCourse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="10dp"
+            android:textSize="13sp"
+            android:textColor="@color/dullblack"
+            android:text="Course name"/>
+
+
+        <TextView
             android:id="@+id/tvVideoName"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_below="@id/tvVideoCourse"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="50dp"
             android:textSize="18sp"

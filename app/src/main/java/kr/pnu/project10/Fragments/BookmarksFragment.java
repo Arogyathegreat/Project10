@@ -101,7 +101,7 @@ public class BookmarksFragment extends Fragment {
                 new FirestoreRecyclerAdapter<VideoModel, VideoViewHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull @NotNull VideoViewHolder holder, int position, @NonNull @NotNull VideoModel model) {
-                        holder.setVideoName(model.getVideo_Name(), model.getVideo_Link());
+                        holder.setVideoName(model.getVideo_Name(), model.getVideo_Link(), model.getVideo_Course());
                     }
 
                     @NonNull
@@ -127,15 +127,18 @@ public class BookmarksFragment extends Fragment {
             mView = itemView;
         }
 
-        void setVideoName(final String videoName, final String videoLink) {
+        void setVideoName(final String videoName, final String videoLink, final String videoCourse) {
             TextView tvVideoName = mView.findViewById(R.id.tvVideoName);
+            TextView tvVideoCourse = mView.findViewById(R.id.tvVideoCourse);
             ImageButton ibDeleteBookmarks = mView.findViewById(R.id.ibDeleteBookmarks);
 
             tvVideoName.setText(videoName);
+            tvVideoCourse.setText(videoCourse);
 
             tvVideoName.setOnClickListener(view -> {
                 bundle.putString("videoName", videoName);
                 bundle.putString("videoLink", videoLink);
+                bundle.putString("videoCourse", videoCourse);
                 Log.d("CourseContentsFragment", videoLink);
                 Navigation.findNavController(view).navigate(R.id.bookmarks_to_youtubePlayer_action, bundle);
             });

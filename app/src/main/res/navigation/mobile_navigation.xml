@@ -83,6 +83,10 @@
             android:name="videoLink"
             app:argType="string"
             android:defaultValue="-1" />
+        <argument
+            android:name="videoCourse"
+            app:argType="string"
+            android:defaultValue="-1" />
     </fragment>
     <activity
         android:id="@+id/youtubePlayer_dest"
@@ -96,6 +100,8 @@
         <action
             android:id="@+id/signup_to_profile_action"
             app:destination="@id/profile_dest"
+            app:popUpTo="@id/profile_dest"
+            app:popUpToInclusive="true"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -119,6 +125,10 @@
                 android:defaultValue="-1" />
             <argument
                 android:name="videoLink"
+                app:argType="string"
+                android:defaultValue="-1" />
+            <argument
+                android:name="videoCourse"
                 app:argType="string"
                 android:defaultValue="-1" />
         </action>

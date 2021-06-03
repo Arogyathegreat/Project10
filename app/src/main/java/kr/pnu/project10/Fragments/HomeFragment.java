@@ -1,5 +1,6 @@
 package kr.pnu.project10.Fragments;
 
+import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -16,12 +17,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -35,9 +39,14 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel mViewModel;
     private HomeFragmentBinding binding;
+
     private FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
+    private FirebaseUser mUser;
+    private FirebaseAuth mAuth;
 
     private RecyclerView mCourses;
+    private Button btnSignInTransfer;
+    private CardView cardSignIn;
 
     private NavController navController;
 
@@ -53,9 +62,14 @@ public class HomeFragment extends Fragment {
 
         binding = HomeFragmentBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+        btnSignInTransfer = binding.btnSignInTransfer;
+        cardSignIn = binding.cardSignIn;
         mCourses = binding.recyclerView;
         mCourses.setLayoutManager(new LinearLayoutManager(getActivity()));
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
 
         return view;
 
@@ -78,6 +92,15 @@ public class HomeFragment extends Fragment {
 
         setRecyclerView();
 
+        if(mUser != null)
+            cardSignIn.setVisibility(View.GONE);
+        else
+            btnSignInTransfer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    navController.navigate(R.id.home_to_signup_action);
+                }
+            });
     }
 
     @Override

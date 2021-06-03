@@ -88,6 +88,8 @@ dependencies {
     // Picasso for image retrieval
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    // Cardview
+    implementation "androidx.cardview:cardview:1.0.0"
 
 
 }

@@ -163,8 +163,9 @@ public class SignupFragment extends Fragment {
     }
 
     private void updateUI(FirebaseUser user) {
-        if (user != null)
+        if (user != null) {
             Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.signup_to_profile_action);
+        }
     }
 
 

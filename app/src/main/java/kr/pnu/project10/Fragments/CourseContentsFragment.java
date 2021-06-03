@@ -91,7 +91,7 @@ public class CourseContentsFragment extends Fragment {
                 new FirestoreRecyclerAdapter<VideoModel, VideoViewHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull VideoViewHolder holder, int position, @NonNull VideoModel model) {
-                        holder.setVideoName(model.getVideo_Name(), model.getVideo_Link());
+                        holder.setVideoName(model.getVideo_Name(), model.getVideo_Link(), model.getVideo_Course());
                     }
 
                     @NonNull
@@ -115,7 +115,7 @@ public class CourseContentsFragment extends Fragment {
             mView = itemView;
         }
 
-        void setVideoName(final String videoName, final String videoLink){
+        void setVideoName(final String videoName, final String videoLink, final String videoCourse){
             TextView videoNameView = mView.findViewById(R.id.course_name);
             RelativeLayout videoItem = mView.findViewById(R.id.course_item);
             videoNameView.setText(videoName);
@@ -123,6 +123,7 @@ public class CourseContentsFragment extends Fragment {
             videoItem.setOnClickListener(view -> {
                 bundle.putString("videoName", videoName);
                 bundle.putString("videoLink", videoLink);
+                bundle.putString("videoCourse", videoCourse);
                 Log.d("CourseContentsFragment", videoLink);
                 Navigation.findNavController(view).navigate(R.id.courseContents_to_youtubePlayer_action, bundle);
             });

@@ -139,15 +139,18 @@ public class ProfileFragment extends Fragment {
     }
 
     private void picassoImageSet(Uri imgUri) {
+
+        String temp = String.valueOf(imgUri).replace("s96-c", "s384-c");
+
         Picasso.get()
-                .load(imgUri)
+                .load(temp)
                 .fit()
                 .centerInside()
                 .into(ivProfileImage, new Callback.EmptyCallback() {
                     @Override
                     public void onSuccess() {
                         super.onSuccess();
-                        Log.d(TAG, "Picasso SUCCESS");
+                        Log.d(TAG, "Picasso SUCCESS. imgUri was" + imgUri);
                     }
                 });
     }
@@ -181,7 +184,6 @@ public class ProfileFragment extends Fragment {
                     .addOnSuccessListener(unused -> Log.d(TAG, "DocumentSnapshot successfully written!"))
                     .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e));
         }
-
     }
 
 }
