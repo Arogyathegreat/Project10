@@ -82,6 +82,7 @@ public class YoutubePlayerActivity extends YoutubeFailureRecoveryActivity implem
         mVideoLink = CourseContentsFragmentArgs.fromBundle(getIntent().getExtras()).getVideoLink();
         mVideoCourse = CourseContentsFragmentArgs.fromBundle(getIntent().getExtras()).getVideoCourse();
 
+        mVideoNameTV.setText(mVideoName);
 
         Log.d("YoutubePlayerActivity", mVideoLink);
 
@@ -104,6 +105,7 @@ public class YoutubePlayerActivity extends YoutubeFailureRecoveryActivity implem
         youTubePlayer.setPlayerStateChangeListener(this);
 
         Log.d("YoutubePlayerActivity", mVideoLink);
+
 
         if (!b)
             youTubePlayer.cueVideo(mVideoLink);
