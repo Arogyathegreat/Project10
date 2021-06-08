@@ -86,6 +86,7 @@ public class YoutubePlayerActivity extends YoutubeFailureRecoveryActivity implem
 
         Log.d("YoutubePlayerActivity", mVideoLink);
 
+        doLayout();
         setBookmarks();
     }
 
