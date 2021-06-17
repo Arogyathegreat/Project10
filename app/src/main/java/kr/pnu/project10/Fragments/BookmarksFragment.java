@@ -17,15 +17,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -42,6 +48,7 @@ public class BookmarksFragment extends Fragment {
     private BookmarksViewModel mViewModel;
     private BookmarksFragmentBinding binding;
     private RecyclerView rvBookmarksContainer;
+    private RelativeLayout rlBookmarksEmpty;
 
     private NavController navController;
     private Bundle bundle;
@@ -54,6 +61,7 @@ public class BookmarksFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = BookmarksFragmentBinding.inflate(inflater, container, false);
+        rlBookmarksEmpty = binding.rlBookmarksEmpty;
         rvBookmarksContainer = binding.recyclerView;
         rvBookmarksContainer.setLayoutManager(new LinearLayoutManager(getActivity()));
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
@@ -74,11 +82,10 @@ public class BookmarksFragment extends Fragment {
 
         bundle = new Bundle();
 
-
         if (mUser != null) {
             setRecyclerView();
+            bookmarksEmpty();
         }
-
     }
 
     @Override
@@ -145,12 +152,37 @@ public class BookmarksFragment extends Fragment {
 
             ibDeleteBookmarks.setOnClickListener(view ->
                     rootRef.collection("Users").document(mUser.getUid())
-                    .collection("Bookmarks").document(videoLink)
-                    .delete()
-                    .addOnSuccessListener(unused -> Log.d(TAG, "DocumentSnapshot successfully deleted!"))
-                    .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e)));
+                            .collection("Bookmarks").document(videoLink)
+                            .delete()
+                            .addOnSuccessListener(unused -> {
+                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                bookmarksEmpty();
+                            })
+                            .addOnFailureListener(e -> Log.w(TAG, "Error writing document", e)));
         }
     }
+
+
+    private void bookmarksEmpty() {
+        rootRef.collection("Users").document(mUser.getUid()).collection("Bookmarks")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Task is successful" + task.getResult().size());
+                            setRlBookmarksEmpty(task.getResult().size() == 0);
+                        } else
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                    }
+                });
+    }
+
+    private void setRlBookmarksEmpty(boolean visibility) {
+        if (visibility) rlBookmarksEmpty.setVisibility(View.VISIBLE);
+        else rlBookmarksEmpty.setVisibility(View.GONE);
+    }
+
 
     private static final String TAG = "BookmarksFragment";
 

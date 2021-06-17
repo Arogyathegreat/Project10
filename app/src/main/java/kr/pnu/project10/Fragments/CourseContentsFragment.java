@@ -1,5 +1,6 @@
 package kr.pnu.project10.Fragments;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -97,7 +98,7 @@ public class CourseContentsFragment extends Fragment {
                     @NonNull
                     @Override
                     public VideoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_course_item, parent, false);
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_video_item, parent, false);
                         return new VideoViewHolder(view);
                     }
                 };
@@ -116,8 +117,8 @@ public class CourseContentsFragment extends Fragment {
         }
 
         void setVideoName(final String videoName, final String videoLink, final String videoCourse){
-            TextView videoNameView = mView.findViewById(R.id.course_name);
-            RelativeLayout videoItem = mView.findViewById(R.id.course_item);
+            TextView videoNameView = mView.findViewById(R.id.tvVideoName);
+            ConstraintLayout videoItem = mView.findViewById(R.id.clVideoItem);
             videoNameView.setText(videoName);
 
             videoItem.setOnClickListener(view -> {

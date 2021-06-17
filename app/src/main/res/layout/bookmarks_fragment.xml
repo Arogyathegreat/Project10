@@ -12,10 +12,9 @@
         android:layout_height="60dp"
         android:layout_marginStart="15dp"
         android:gravity="center_vertical"
-        android:text="Bookmarks"
-        android:textColor="@color/dullblack"
-        android:textSize="22sp"
-        android:textStyle="bold" />
+        android:text="@string/bookmarks"
+        android:textColor="@color/black"
+        android:textSize="22sp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -27,6 +26,29 @@
             android:layout_height="wrap_content">
 
         </androidx.recyclerview.widget.RecyclerView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlBookmarksEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivBookmarksEmpty"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_bookmarks_black_24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivBookmarksEmpty"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:text="@string/empty_bookmarks"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
 
     </RelativeLayout>

@@ -23,10 +23,10 @@ public class BookmarksViewModel extends ViewModel {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("HomeFragment", document.getId() + " => " + document.getData());
+                                Log.d("BookmarksViewModel", document.getId() + " => " + document.getData());
                             }
                         } else {
-                            Log.w("HomeFragment", "Error getting documents.", task.getException());
+                            Log.w("BookmarksViewModel", "Error getting documents.", task.getException());
                         }
                     }
                 });
