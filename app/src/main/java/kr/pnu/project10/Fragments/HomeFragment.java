@@ -3,6 +3,7 @@ package kr.pnu.project10.Fragments;
 import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -28,6 +30,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Random;
 
 import kr.pnu.project10.Fragments.ViewModels.HomeViewModel;
 import kr.pnu.project10.R;
@@ -47,6 +54,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView mCourses;
     private Button btnSignInTransfer;
     private CardView cardSignIn;
+    private ImageView ivSigninArt;
 
     private NavController navController;
 
@@ -65,6 +73,7 @@ public class HomeFragment extends Fragment {
         btnSignInTransfer = binding.btnSignInTransfer;
         cardSignIn = binding.cardSignIn;
         mCourses = binding.recyclerView;
+        ivSigninArt = binding.ivSigninArt;
         mCourses.setLayoutManager(new LinearLayoutManager(getActivity()));
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
@@ -92,15 +101,17 @@ public class HomeFragment extends Fragment {
 
         setRecyclerView();
 
-        if(mUser != null)
+        if (mUser != null)
             cardSignIn.setVisibility(View.GONE);
-        else
+        else {
+            setRandomImage();
             btnSignInTransfer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     navController.navigate(R.id.home_to_signup_action);
                 }
             });
+        }
     }
 
     @Override
@@ -157,6 +168,20 @@ public class HomeFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.home_to_courseContents_action, bundle);
             });
         }
+
+    }
+
+    private void setRandomImage() {
+        ArrayList<String> imageList = new ArrayList<>();
+        for (int i = 1; i <= 10; ++i) {
+            imageList.add("logo" + i);
+        }
+
+        Collections.shuffle(imageList);
+
+        int resID = getResources().getIdentifier(imageList.get(0), "drawable", getContext().getPackageName());
+        ivSigninArt.setImageResource(resID);
+        Log.d(TAG, imageList.get(0));
 
     }
 
